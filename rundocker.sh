@@ -10,7 +10,6 @@ docker run  -it \
             --rm \
             --privileged \
             --net=host \
-            --runtime=nvidia \
             --env="DISPLAY" \
             --env="TERM" \
             $DOCKER_IMAGE
