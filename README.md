@@ -84,13 +84,13 @@ git clone https://github.com/vsssfbot/fbot_vss_docker.git
 cd fbot_vss_docker
 ```
 
-Monta o container
+Montando o container
 
 ```bat
 ./dockerbuild.sh
 ```
 
-Executa o container
+Executando o container
 
 ```bat
 ./rundocker.sh
@@ -137,7 +137,6 @@ Instalando FiraSim
 cd /vsss_ws
 git clone https://github.com/VSSSLeague/FIRASim.git
 cd FIRASim
-git checkout tags/v3.0
 mkdir build
 cd build
 cmake ..
@@ -149,7 +148,6 @@ Instalando VSSRefere
 cd /vsss_ws
 git clone https://github.com/VSSSLeague/VSSReferee.git
 cd VSSReferee
-git checkout CBFRS
 
 mkdir build
 cd build
