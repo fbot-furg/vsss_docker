@@ -98,7 +98,7 @@ Executando o container
 
 ---
 
-# Instalação por terminal
+# Instalação por Terminal
 
 ## Instalando Dependencias
 
