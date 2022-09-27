@@ -18,11 +18,7 @@ sudo apt-get update
 ```
 
 ```bat
-sudo apt-get install \
-    ca-certificates \ 
-    curl \
-    gnupg \
-    lsb-release
+sudo apt-get install ca-certificates curl gnupg lsb-release
 ```
 
 ```bat
