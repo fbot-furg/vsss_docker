@@ -84,13 +84,17 @@ Montando o container
 ```bat
 ./dockerbuild.sh
 ```
+Error: Permission Denied.
+sudo sh ./dockerbuild.sh
+
 
 Executando o container
 
 ```bat
 ./rundocker.sh
 ```
-
+Error: Permission Denied.
+sudo sh ./rundocker.sh
 ---
 
 # Instalação por Terminal
