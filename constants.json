@@ -22,8 +22,8 @@
 
     "Team":{
     	"qtPlayers": 5,
-    	"blueTeamName": "ThundeRatz",
-    	"yellowTeamName": "Team Yellow",
+    	"blueTeamName": "FBOT_BLUE",
+    	"yellowTeamName": "FBOT_YELLOW",
     	"blueIsLeftSide": true
     },
 

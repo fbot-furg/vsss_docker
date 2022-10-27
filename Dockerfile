@@ -1,5 +1,8 @@
 FROM ubuntu:18.04 as cacher
 
+# Avoid libopencv-dev tzdata interaction
+ARG DEBIAN_FRONTEND=noninteractive 
+
 # Set working directory
 RUN mkdir /vsss_ws
 WORKDIR /vsss_ws
@@ -16,6 +19,7 @@ RUN apt-get update && apt-get install -y \
     libglu1-mesa-dev \
     libprotobuf-dev \
     protobuf-compiler \
+    v4l-utils \
     libode-dev \
     libboost-dev \
     sudo && \
@@ -45,6 +49,17 @@ RUN cd /vsss_ws && \
 RUN cd /vsss_ws/VSSReferee && \
     mkdir build && cd build && qmake .. && make
 
+# Install SSL-VISION
+RUN cd /vsss_ws && \
+    git clone https://github.com/RoboCup-SSL/ssl-vision.git && \
+    cd ssl-vision && \
+    sh InstallPackagesUbuntu.sh && \
+    mkdir build && \
+    cd build && \
+    cmake -DUSE_V4L=true .. && \
+    cd .. && \
+    make
+
 FROM builder as runner
 
 # Set enviroment variables
@@ -57,5 +72,4 @@ ENV XDG_RUNTIME_DIR=/tmp/runtime-root
 COPY constants.json /vsss_ws/VSSReferee/src/constants/
 
 # Run FIRASim and VSSReferee
-CMD /vsss_ws/VSSReferee/bin/VSSReferee --3v3 --record false & /vsss_ws/FIRASim/bin/FIRASim
-# CMD /vsss_ws/FIRASim/bin/FIRASim
+# CMD /vsss_ws/VSSReferee/bin/VSSReferee --3v3 --record false & /vsss_ws/FIRASim/bin/FIRASim

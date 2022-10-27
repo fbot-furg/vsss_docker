@@ -10,6 +10,7 @@ docker run  -it \
             --rm \
             --privileged \
             --net=host \
+            --device=/dev/video0:/dev/video0 \
             --env="DISPLAY" \
             --env="TERM" \
             $DOCKER_IMAGE
