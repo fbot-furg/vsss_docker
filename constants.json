@@ -5,7 +5,7 @@
 
     "Vision":{
     	"visionAddress": "224.0.0.1",
-    	"visionPort": 10002,
+    	"visionPort": 10006,
     	"filters":{
     		"useKalman": false,
     		"noiseTime": 100,
