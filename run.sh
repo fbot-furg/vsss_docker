@@ -3,7 +3,7 @@
 # Evitar erro com o uso de video
 xhost +local:docker
 
-DOCKER_IMAGE="fbot/firasim:latest"
+DOCKER_IMAGE="fbot/vsss:latest"
 
 # Executando o docker
 docker run  -it \
@@ -14,5 +14,3 @@ docker run  -it \
             --env="DISPLAY" \
             --env="TERM" \
             $DOCKER_IMAGE
-
-# docker run  -it --rm --privileged --net=host --env="DISPLAY" --env="TERM" fbot/firasim:latest
