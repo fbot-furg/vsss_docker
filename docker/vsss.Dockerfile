@@ -32,16 +32,8 @@ RUN apt-get update && apt-get install -y \
 
 FROM cacher as builder
 
-# Install FIRASim and VSSReferee
+# Install VSSReferee
 RUN cd /vsss_ws && \
-    git clone https://github.com/VSSSLeague/FIRASim.git && \
-    cd FIRASim && \
-    git checkout tags/v3.0 && \
-    mkdir build && \
-    cd build && \
-    cmake .. && \
-    make && \
-    cd /vsss_ws && \
     git clone https://github.com/VSSSLeague/VSSReferee.git && \
     cd VSSReferee && \
     git checkout CBFRS
@@ -50,7 +42,8 @@ RUN cd /vsss_ws/VSSReferee && \
     mkdir build && cd build && qmake .. && make
 
 # Install SSL-VISION
-RUN cd /vsss_ws && \
+RUN apt-get update && \
+    cd /vsss_ws && \
     git clone https://github.com/RoboCup-SSL/ssl-vision.git && \
     cd ssl-vision && \
     sh InstallPackagesUbuntu.sh && \
@@ -59,7 +52,6 @@ RUN cd /vsss_ws && \
     cmake -DUSE_V4L=true .. && \
     cd .. && \
     make
-
 FROM builder as runner
 
 # Set enviroment variables
@@ -71,8 +63,6 @@ ENV XDG_RUNTIME_DIR=/tmp/runtime-root
 
 COPY constants.json /vsss_ws/VSSReferee/src/constants/
 
-# Run FIRASim and VSSReferee
-# CMD /vsss_ws/VSSReferee/bin/VSSReferee --3v3 --record false & /vsss_ws/FIRASim/bin/FIRASim
-
-#Run ssl-vision
-# ./bin/vision -s -c 1
+# Run ssl-vision and VSSReferee
+# CMD /vsss_ws/VSSReferee/bin/VSSReferee --3v3 --record false
+CMD cd /vsss_ws/ssl-vision && ./bin/vision -c 1
