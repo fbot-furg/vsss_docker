@@ -6,153 +6,52 @@ Tecnologias usadas:
  - Docker Engine
  - [FiraSim](https://github.com/VSSSLeague/FIRASim)
  - [VSSReferee](https://github.com/VSSSLeague/VSSReferee)
+ - [SSL-VISION](https://github.com/RoboCup-SSL/ssl-vision)
 
-# Instalação com Docker
+## Instalação Docker
+Tutorial com a instalação do Docker para ubuntu [aqui](https://docs.docker.com/engine/install/ubuntu/)
 
-## Instalar Docker Engine
-Para mais informação [Documentação Oficial Docker](https://docs.docker.com/engine/install/ubuntu/)
+## Preparando o ambiente
 
-### Configurar Repositorio Docker
-```bat
-sudo apt-get update
-```
+Esses passos são opicionais se o diretório `~/vsss_ws` ainda não foi criado no seu pc. Para verificar é possivel rodar o seguinte comando
 
 ```bat
-sudo apt-get install ca-certificates curl gnupg lsb-release
+cd ~/vss_ws
 ```
 
+Se o diretório não existir, use esses comando para criar ele
 ```bat
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+cd ~/
+mkdir vsss_ws
+cd vsss_ws
 ```
 
+## Clonando esse repositório
 ```bat
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+git clone https://github.com/fbot-furg/vsss_docker.git
+cd vss_docker
 ```
 
-### Instalar Docker Engine
+## Buildando Imagens do Docker
+As imagens precisam ser buildadas apenas uma única vez.
+Essa etapa apenas deve ser repetida quando houver alguma alteração nos Dockerfile precisa ser feita alguma alteração no `constants.json`
 
+Imagem do FIRASim e do Referee
 ```bat
-sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo sh buildFira.sh
 ```
 
-Para verificar se a instalação do Docker Engine foi completa
-
+Imagem do ssl-vision e do Referee
 ```bat
-sudo service docker start
-sudo docker run hello-world
+sudo sh build.sh
 ```
 
-Resposta esperada:
+## Executando os Containers
 
-```bat
-Hello from Docker!
-This message shows that your installation appears to be working correctly.
-
-To generate this message, Docker took the following steps:
- 1. The Docker client contacted the Docker daemon.
- 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
-    (amd64)
- 3. The Docker daemon created a new container from that image which runs the
-    executable that produces the output you are currently reading.
- 4. The Docker daemon streamed that output to the Docker client, which sent it
-    to your terminal.
-
-To try something more ambitious, you can run an Ubuntu container with:
- $ docker run -it ubuntu bash
-
-Share images, automate workflows, and more with a free Docker ID:
- https://hub.docker.com/
-
-For more examples and ideas, visit:
- https://docs.docker.com/get-started/
-
+Rodando o Fira junto com o Referee
+```bash
+sudo sh runFira.sh
 ```
-## Instalando FiraSim e VSSReferee via Docker
-
-Clonando repositório 
-
-```bat
-git clone https://github.com/vsssfbot/fbot_vss_docker.git
-cd fbot_vss_docker
-```
-
-Montando o container
-
-```bat
-./dockerbuild.sh
-```
-error: Permission Denied. ---> sudo sh ./dockerbuild.sh
-
-
-Executando o container
-
-```bat
-./rundocker.sh
-```
-error: Permission Denied. ---> sudo sh ./rundocker.sh
----
-
-# Instalação por Terminal
-
-## Instalando Dependencias
-
-Abra um novo terminal 
-
-```bat
-sudo apt-get install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
-sudo apt-get install -y build-essential g++ cmake git libqt5opengl5-dev libgl1-mesa-dev libglu1-mesa-dev libprotobuf-dev protobuf-compiler libode-dev libboost-dev
-```
-
-Instalando Vartypes
-
-```bat
-sudo apt-get clean
-cd /tmp
-git clone https://github.com/jpfeltracco/vartypes.git
-cd vartypes
-mkdir build
-cd build
-cmake ..
-make 
-sudo make install
-```
-## Instalando FiraSim e VSSRefere
-
-Criando workspace
-
-```bat
-sudo
-mkdir /vsss_ws
-```
-
-Instalando FiraSim
-
-```bat
-cd /vsss_ws
-git clone https://github.com/VSSSLeague/FIRASim.git
-cd FIRASim
-mkdir build
-cd build
-cmake ..
-make
-```
-
-Instalando VSSRefere
-```bat
-cd /vsss_ws
-git clone https://github.com/VSSSLeague/VSSReferee.git
-cd VSSReferee
-
-mkdir build
-cd build
-qmake .. 
-make
-```
-
-Rodando o FiraSim
-```bat
-./vsss_ws/FIRASim/bin/FIRASim
-```
+Rodando o ssl-vision com o Referee
+```bash
+sudo sh run.sh
