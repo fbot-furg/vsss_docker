@@ -52,6 +52,6 @@ Rodando o Fira junto com o Referee
 ```bash
 sudo sh runFira.sh
 ```
-Rodando o ssl-vision com o Referee
+Rodando o ssl-vision
 ```bash
 sudo sh run.sh
